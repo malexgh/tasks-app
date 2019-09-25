@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGODB_URL,
-    { useNewUrlParser: true, useCreateIndex: true }
-);
+  { useNewUrlParser: true, useCreateIndex: true });
 
 // const me = new User({ name: 'Marcio', age: 48 });
 // me.save().then(() => {
