@@ -15,12 +15,9 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  //final Api api = Api();
-
   @override
   Widget build(BuildContext context) {
-    //print('Tasks - Token: ' + widget.token);
-    //api.setToken(widget.token);
+    final Api api = widget.api;
     return Scaffold(
       appBar: AppBar(
         title: Text('Tasks'),
@@ -29,8 +26,7 @@ class _TasksPageState extends State<TasksPage> {
             icon: Icon(Icons.add),
             onPressed: () async {
               //TODO 1: add new task - no fake data
-              var res =
-                  await widget.api.taskAdd('Task ${Random().nextInt(100)}');
+              var res = await api.taskAdd('Task ${Random().nextInt(100)}');
               print(res.statusCode);
               if (res.statusCode == 200) {
                 //ok
@@ -40,7 +36,7 @@ class _TasksPageState extends State<TasksPage> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () async {
-              var res = await widget.api.userLogout();
+              var res = await api.userLogout();
               print(res.statusCode);
               if (res.statusCode == 200) {
                 Navigator.pushReplacementNamed(context, '/login');
@@ -50,7 +46,7 @@ class _TasksPageState extends State<TasksPage> {
         ],
       ),
       body: FutureBuilder<List<Task>>(
-        future: widget.api.fetchTasks(),
+        future: api.fetchTasks(),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData
