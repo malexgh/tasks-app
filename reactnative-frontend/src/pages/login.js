@@ -28,7 +28,7 @@ const Login = (props) => {
             <Text style={styles.label}>Email</Text>
             <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
             <Text style={styles.label}>Password</Text>
-            <TextInput style={styles.input} value={password} onChangeText={(text) => setPassword(text)} />
+            <TextInput secureTextEntry={true} style={styles.input} value={password} onChangeText={(text) => setPassword(text)} />
             <View style={styles.buttonContainer}>
                 <Button color={Colors.primary} title="Login" onPress={handleLogin} />
             </View>
