@@ -2,48 +2,54 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-userCreate(email, password) async {
-  http.Response response = await http.post('http://192.168.1.53:3000/users',
-      //'https://ma-task-manager.herokuapp.com/users',
-      headers: {"Content-Type": "application/json"},
-      body: json
-          .encode({"name": "*TODO*", "email": email, "password": password}));
-  return response;
-}
+const _baseUrl = 'http://192.168.1.53:3000'; //DEV
+//const _baseUrl = 'https://ma-task-manager.herokuapp.com'; //PROD
 
-userLogin(email, password) async {
-  http.Response response =
-      await http.post('http://192.168.1.53:3000/users/login',
-          //'https://ma-task-manager.herokuapp.com/users/login',
-          headers: {"Content-Type": "application/json"},
-          body: json.encode({"email": email, "password": password}));
-  return response;
-}
+class Api {
+  String _token;
 
-userLogout(token) async {
-  http.Response response = await http.post(
-      'http://192.168.1.53:3000/users/logout',
-      //'https://ma-task-manager.herokuapp.com/users/logout',
-      headers: {"Content-Type": "application/json", "Authorization": token});
-  return response;
-}
+  void setToken(String token) {
+    _token = token;
+  }
 
-taskAdd(token, description) async {
-  http.Response response = await http.post('http://192.168.1.53:3000/tasks',
-      headers: {"Content-Type": "application/json", "Authorization": token},
-      body: json.encode({"description": description}));
-  return response;
-}
+  userCreate(email, password) async {
+    http.Response response = await http.post('$_baseUrl/users',
+        headers: {"Content-Type": "application/json"},
+        body: json
+            .encode({"name": "*TODO*", "email": email, "password": password}));
+    return response;
+  }
 
-Future<List<Task>> fetchTasks(token) async {
-  final response = await http.get('http://192.168.1.53:3000/tasks',
-      headers: {"Content-Type": "application/json", "Authorization": token});
-  print(response.body);
-  return compute(parseTasks, response.body);
+  userLogin(email, password) async {
+    http.Response response = await http.post('$_baseUrl/users/login',
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({"email": email, "password": password}));
+    return response;
+  }
+
+  userLogout() async {
+    http.Response response = await http.post('$_baseUrl/users/logout',
+        headers: {"Content-Type": "application/json", "Authorization": _token});
+    return response;
+  }
+
+  taskAdd(description) async {
+    http.Response response = await http.post('$_baseUrl/tasks',
+        headers: {"Content-Type": "application/json", "Authorization": _token},
+        body: json.encode({"description": description}));
+    return response;
+  }
+
+  Future<List<Task>> fetchTasks() async {
+    final response = await http.get('$_baseUrl/tasks',
+        headers: {"Content-Type": "application/json", "Authorization": _token});
+    //print(response.body);
+    return compute(parseTasks, response.body);
+  }
 }
 
 List<Task> parseTasks(String responseBody) {
-  print(responseBody);
+  //print(responseBody);
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<Task>((json) => Task.fromJson(json)).toList();
 }

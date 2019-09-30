@@ -1,14 +1,13 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'api.dart';
 
 class TasksPage extends StatefulWidget {
-  final String token;
+  final Api api;
 
   const TasksPage({
     Key key,
-    @required this.token,
+    @required this.api,
   }) : super(key: key);
 
   @override
@@ -16,9 +15,12 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
+  //final Api api = Api();
+
   @override
   Widget build(BuildContext context) {
-    print('Tasks - Token: ' + widget.token);
+    //print('Tasks - Token: ' + widget.token);
+    //api.setToken(widget.token);
     return Scaffold(
       appBar: AppBar(
         title: Text('Tasks'),
@@ -28,7 +30,7 @@ class _TasksPageState extends State<TasksPage> {
             onPressed: () async {
               //TODO 1: add new task - no fake data
               var res =
-                  await taskAdd(widget.token, 'Task ${Random().nextInt(100)}');
+                  await widget.api.taskAdd('Task ${Random().nextInt(100)}');
               print(res.statusCode);
               if (res.statusCode == 200) {
                 //ok
@@ -38,7 +40,7 @@ class _TasksPageState extends State<TasksPage> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () async {
-              var res = await userLogout(widget.token);
+              var res = await widget.api.userLogout();
               print(res.statusCode);
               if (res.statusCode == 200) {
                 Navigator.pushReplacementNamed(context, '/login');
@@ -48,7 +50,7 @@ class _TasksPageState extends State<TasksPage> {
         ],
       ),
       body: FutureBuilder<List<Task>>(
-        future: fetchTasks(widget.token),
+        future: widget.api.fetchTasks(),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData

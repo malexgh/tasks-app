@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'tasks.dart';
+import 'api.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,11 +21,11 @@ class MyApp extends StatelessWidget {
         var route;
         switch (settings.name) {
           case '/tasks':
-            final String token = settings.arguments;
+            final api = settings.arguments;
             route = MaterialPageRoute(
               builder: (context) {
                 return TasksPage(
-                  token: token,
+                  api: api,
                 );
               },
             );

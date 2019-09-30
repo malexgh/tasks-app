@@ -12,6 +12,7 @@ class _LoginPageState extends State<LoginPage> {
   int _action = 0; //0=login 1=create account
   final List<String> _btnLabel = ['Login', 'Create Account'];
   final _formKey = GlobalKey<FormState>();
+  final Api api = Api();
   bool _autoValidate = false;
   bool _isLoading = false;
   String _error = '';
@@ -39,13 +40,13 @@ class _LoginPageState extends State<LoginPage> {
     try {
       var res;
       if (_action == 0) {
-        res = await userLogin(_email, _password);
+        res = await api.userLogin(_email, _password);
       } else {
-        res = await userCreate(_email, _password);
+        res = await api.userCreate(_email, _password);
       }
       if (res.statusCode == 200 || res.statusCode == 201) {
-        var token = jsonDecode(res.body)['token'];
-        Navigator.pushReplacementNamed(context, '/tasks', arguments: token);
+        api.setToken(jsonDecode(res.body)['token']);
+        Navigator.pushReplacementNamed(context, '/tasks', arguments: api);
       } else {
         print('Body: ' + res.body);
         _error = 'Status Code: ' + res.statusCode.toString();
