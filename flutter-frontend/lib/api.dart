@@ -28,6 +28,13 @@ userLogout(token) async {
   return response;
 }
 
+taskAdd(token, description) async {
+  http.Response response = await http.post('http://192.168.1.53:3000/tasks',
+      headers: {"Content-Type": "application/json", "Authorization": token},
+      body: json.encode({"description": description}));
+  return response;
+}
+
 Future<List<Task>> fetchTasks(token) async {
   final response = await http.get('http://192.168.1.53:3000/tasks',
       headers: {"Content-Type": "application/json", "Authorization": token});

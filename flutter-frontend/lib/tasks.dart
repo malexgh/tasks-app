@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'api.dart';
 
@@ -14,28 +16,25 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  //Future<List<Task>> _tasks;
-
-  void _addTask() {
-//    setState(() {
-//      _tasks.add('Task ${_tasks.length + 1}');
-//    });
-  }
-
-//  @override
-//  void initState() {
-//    _tasks = fetchTasks();
-//    super.initState();
-//  }
-
   @override
   Widget build(BuildContext context) {
-    //final ScreenArguments args = ModalRoute.of(context).settings.arguments;
     print('Tasks - Token: ' + widget.token);
     return Scaffold(
       appBar: AppBar(
         title: Text('Tasks'),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () async {
+              //TODO 1: add new task - no fake data
+              var res =
+                  await taskAdd(widget.token, 'Task ${Random().nextInt(100)}');
+              print(res.statusCode);
+              if (res.statusCode == 200) {
+                //ok
+              }
+            },
+          ),
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () async {
@@ -56,11 +55,6 @@ class _TasksPageState extends State<TasksPage> {
               ? TasksList(tasks: snapshot.data)
               : Center(child: CircularProgressIndicator());
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addTask,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
