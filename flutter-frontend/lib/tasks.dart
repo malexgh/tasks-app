@@ -76,7 +76,12 @@ class TasksList extends StatelessWidget {
     return ListView.builder(
       itemCount: tasks.length,
       itemBuilder: (context, index) {
-        return Card(child: ListTile(title: Text(tasks[index].description)));
+        return Card(
+          child: ListTile(
+            title: Text(tasks[index].description),
+            trailing: Checkbox(value: tasks[index].completed),
+          ),
+        );
       },
     );
   }
