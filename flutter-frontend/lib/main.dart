@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         var route;
         switch (settings.name) {
           case '/tasks':
-            final api = settings.arguments;
+            final Api api = settings.arguments;
             route = MaterialPageRoute(
               builder: (context) {
                 return TasksPage(
