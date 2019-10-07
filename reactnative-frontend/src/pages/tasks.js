@@ -7,7 +7,7 @@ const Tasks = (props) => {
     const token = props.navigation.getParam('token');
 
     useEffect(() => {
-        fetch('http://192.168.1.53:3000/tasks', {
+        fetch('http://localhost:3000/tasks', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const Tasks = (props) => {
 
     const handleLogout = () => {
         //console.log('Logout');
-        fetch('http://192.168.1.53:3000/users/logout', {
+        fetch('http://localhost:3000/users/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
