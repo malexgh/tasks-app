@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-const _baseUrl = 'http://192.168.1.53:3000'; //DEV
+const _baseUrl = 'http://localhost:3000'; //DEV
 //const _baseUrl = 'https://ma-task-manager.herokuapp.com'; //PROD
 
 class Api {
