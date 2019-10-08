@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Colors from '../constants/colors';
 
 const Login = (props) => {
@@ -25,12 +25,29 @@ const Login = (props) => {
 
     return (
         <View style={styles.screen}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
-            <Text style={styles.label}>Password</Text>
-            <TextInput secureTextEntry={true} style={styles.input} value={password} onChangeText={(text) => setPassword(text)} />
+            <TextInput
+                style={styles.input}
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                placeholder="Email"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                autoFocus={true}
+            />
+            <TextInput
+                style={styles.input}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                placeholder="Password"
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry={true}
+            />
             <View style={styles.buttonContainer}>
-                <Button color={Colors.primary} title="Login" onPress={handleLogin} />
+                <TouchableOpacity style={styles.button} onPress={handleLogin} >
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -59,6 +76,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     input: {
+        height: 50,
         width: '60%',
         marginVertical: 10,
         borderColor: 'black',
@@ -66,11 +84,24 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     buttonContainer: {
-        width:'60%',
-        marginTop:10,
+        height: 50,
+        width: '60%',
+        marginTop: 10,
         borderColor: 'black',
         borderWidth: 1,
-        borderRadius:5
+        borderRadius: 5
+    },
+    button: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: Colors.primary,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
