@@ -8,7 +8,7 @@ const Login = (props) => {
 
     const handleLogin = () => {
         //console.log(email, password);
-        fetch('http://192.168.1.53:3000/users/login', {
+        fetch('http://localhost:3333/users/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
