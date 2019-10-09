@@ -13,11 +13,11 @@ export default function Login({ history }) {
         }
         try {
             const response = await api.post('/users/login', { email, password });
-            console.log(response);
             if (response.status === 200 || response.status === 201) {
-                //const { token } = response.data;
+                const { token } = response.data;
+                //console.log(token);
                 //localStorage.setItem('user', token);
-                history.push('/tasks');
+                history.push('/tasks', {token});
             }
         } catch (e) {
             console.log(e);
@@ -37,7 +37,7 @@ export default function Login({ history }) {
                 />
                 <label htmlFor="password">Password *</label>
                 <input
-                    type="text"
+                    type="password"
                     id="password"
                     placeholder="Password"
                     value={password}
