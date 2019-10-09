@@ -1,0 +1,19 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 60%;
+    min-width: 400px;
+    border: 1px solid #333;
+}
+
+.task {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: lightpink;
+}
