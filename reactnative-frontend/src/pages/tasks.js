@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Button } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Button, Switch } from 'react-native';
 import Colors from '../constants/colors';
 
 const Tasks = (props) => {
@@ -27,10 +27,11 @@ const Tasks = (props) => {
         props.navigation.setParams({ handleLogout: handleLogout });
     }, []);
 
-    const Item = ({ title }) => {
+    const Item = ({ title, checked }) => {
         return (
             <View style={styles.item}>
                 <Text style={styles.title}>{title}</Text>
+                <Switch value={checked} onValueChange={() => { }} />
             </View>
         );
     }
@@ -57,7 +58,7 @@ const Tasks = (props) => {
         <SafeAreaView style={styles.container}>
             <FlatList
                 data={tasks}
-                renderItem={({ item }) => <Item title={item.description} />}
+                renderItem={({ item }) => <Item title={item.description} checked={item.completed} />}
                 keyExtractor={item => item._id}
             />
         </SafeAreaView>
