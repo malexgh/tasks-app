@@ -31,7 +31,12 @@ const Tasks = (props) => {
         return (
             <View style={styles.item}>
                 <Text style={styles.title}>{title}</Text>
-                <Switch value={checked} onValueChange={() => { }} />
+                <Switch
+                    value={checked}
+                    onValueChange={() => { }}
+                    thumbColor={checked ? Colors.primary : 'lightgray'}
+                    trackColor={{true:'white', false:'white'}}
+                />
             </View>
         );
     }
@@ -92,10 +97,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     container: {
-        flex: 1,
-        marginTop: 20,
+        //flex: 1,
+        marginTop: 8,
     },
     item: {
+        flexDirection:'row',
+        justifyContent:"space-between",
         backgroundColor: Colors.accent,
         padding: 20,
         marginVertical: 8,
